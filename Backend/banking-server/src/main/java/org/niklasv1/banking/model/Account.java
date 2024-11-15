@@ -26,7 +26,7 @@ public class Account {
     @OneToMany(mappedBy = "account")
     public List<Withdrawal> withdrawals;
 
-
+    @OneToMany(mappedBy = "account")
     public List<Deposit> deposits;
 
     @Column(nullable = false, length = 100)
