@@ -13,8 +13,7 @@ public class Withdrawal {
     @GeneratedValue
     public UUID id;
 
-    @Column(nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account")
     public Account account;
 

@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Table(name = "deposits")
 public class Deposit {
     @Id
     @GeneratedValue
     public UUID id;
 
-    @Column(nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account")
     public Account account;
 
