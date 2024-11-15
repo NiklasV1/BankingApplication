@@ -2,7 +2,6 @@ package org.niklasv1.banking.account;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -20,11 +19,6 @@ public class AccountResource {
     BankController bankController;
 
     @GET
-    public String test() {
-        return "account";
-    }
-
-    @GET
     @Path("/all")
     public List<Account> getAllAccounts() {
         return bankController.getAllAccounts();
@@ -32,14 +26,40 @@ public class AccountResource {
 
     @POST
     @Path("/create")
-    public UUID createAccount(AccountFormData accountFormData) {
-
+    public UUID createAccount(AccountCreateFormData accountCreateFormData) {
+        // TODO input validation + Error handling
         AuthData authData = new AuthData(
-                accountFormData.id(),
-                accountFormData.username(),
-                accountFormData.plainPassword()
+                accountCreateFormData.id(),
+                accountCreateFormData.username(),
+                accountCreateFormData.plainPassword()
         );
 
-        return bankController.createAccount(authData, accountFormData.name());
+        return bankController.createAccount(authData, accountCreateFormData.name());
+    }
+
+    public UUID deleteAccount(AccountIdFormData accountIdFormData) {
+        // TODO input validation + Error handling
+        AuthData authData = new AuthData(
+                accountIdFormData.id(),
+                accountIdFormData.username(),
+                accountIdFormData.plainPassword()
+        );
+
+        return bankController.deleteAccount(authData, accountIdFormData.accountId());
+    }
+
+    // TODO
+    public List<Account> viewAccounts(AuthData authData) {
+        return null;
+    }
+
+    // TODO
+    public String freezeAccount(AuthData authData, UUID account_id) {
+        return null;
+    }
+
+    // TODO
+    public UUID unfreezeAccount(AuthData authData, UUID account_id, String unfreezeCode) {
+        return null;
     }
 }
