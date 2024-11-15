@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import org.niklasv1.banking.main.BankController;
+import org.niklasv1.banking.BankController;
 
 @Path("/api/customer")
 @ApplicationScoped
