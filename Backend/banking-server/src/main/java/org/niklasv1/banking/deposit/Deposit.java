@@ -11,15 +11,47 @@ import java.util.UUID;
 public class Deposit {
     @Id
     @GeneratedValue
-    public UUID id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account")
-    public Account account;
+    private Account account;
 
     @Column(nullable = false)
-    public Long amount;
+    private Long amount;
 
     @Column(nullable = false)
-    public LocalDateTime timestamp;
+    private LocalDateTime timestamp;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 }

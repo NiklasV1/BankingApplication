@@ -14,30 +14,102 @@ import java.util.UUID;
 public class Account {
     @Id
     @GeneratedValue
-    public UUID id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "owner")
-    public Customer owner;
+    private Customer owner;
 
     @OneToMany(mappedBy = "sender")
-    public List<Transaction> transactionsSent;
+    private List<Transaction> transactionsSent;
 
     @OneToMany(mappedBy = "receiver")
-    public List<Transaction> transactionsReceived;
+    private List<Transaction> transactionsReceived;
 
     @OneToMany(mappedBy = "account")
-    public List<Withdrawal> withdrawals;
+    private List<Withdrawal> withdrawals;
 
     @OneToMany(mappedBy = "account")
-    public List<Deposit> deposits;
+    private List<Deposit> deposits;
 
     @Column(nullable = false, length = 100)
-    public String name;
+    private String name;
 
     @Column(nullable = false)
-    public Long balance;
+    private Long balance;
 
     @Column(nullable = false)
-    public boolean frozen;
+    private boolean frozen;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Customer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Customer owner) {
+        this.owner = owner;
+    }
+
+    public List<Transaction> getTransactionsSent() {
+        return transactionsSent;
+    }
+
+    public void setTransactionsSent(List<Transaction> transactionsSent) {
+        this.transactionsSent = transactionsSent;
+    }
+
+    public List<Transaction> getTransactionsReceived() {
+        return transactionsReceived;
+    }
+
+    public void setTransactionsReceived(List<Transaction> transactionsReceived) {
+        this.transactionsReceived = transactionsReceived;
+    }
+
+    public List<Withdrawal> getWithdrawals() {
+        return withdrawals;
+    }
+
+    public void setWithdrawals(List<Withdrawal> withdrawals) {
+        this.withdrawals = withdrawals;
+    }
+
+    public List<Deposit> getDeposits() {
+        return deposits;
+    }
+
+    public void setDeposits(List<Deposit> deposits) {
+        this.deposits = deposits;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Long balance) {
+        this.balance = balance;
+    }
+
+    public boolean isFrozen() {
+        return frozen;
+    }
+
+    public void setFrozen(boolean frozen) {
+        this.frozen = frozen;
+    }
 }
