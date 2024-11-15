@@ -21,10 +21,12 @@ public class Transaction {
 
     @Column(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender")
     public Account sender;
 
     @Column(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver")
     public Account receiver;
 
     @Column(nullable = false)

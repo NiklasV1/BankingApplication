@@ -2,6 +2,7 @@ package org.niklasv1.banking.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +16,17 @@ public class Account {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     public Customer owner;
+
+    @OneToMany(mappedBy = "sender")
+    public List<Transaction> transactionsSent;
+
+    @OneToMany(mappedBy = "receiver")
+    public List<Transaction> transactionsReceived;
+
+
+    public List<Withdrawal> withdrawals;
+
+    public List<Deposit> deposits;
 
     @Column(nullable = false, length = 100)
     public String name;
