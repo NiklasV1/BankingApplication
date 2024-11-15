@@ -1,9 +1,7 @@
 package org.niklasv1.banking.customer;
 
 import jakarta.persistence.*;
-import org.niklasv1.banking.account.Account;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -13,9 +11,6 @@ public class Customer {
     @Id
     @GeneratedValue
     private UUID id;
-
-    @OneToMany(mappedBy = "owner")
-    private List<Account> accounts;
 
     @Column(name = "first_name", nullable = false, length = 100)
     private String firstName;
@@ -32,20 +27,23 @@ public class Customer {
     @Column(nullable = false, length = 32)
     private byte[] password;
 
+    public Customer() {
+    }
+
+    public Customer(String firstName, String lastName, String address, String username, byte[] password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.username = username;
+        this.password = password;
+    }
+
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
     }
 
     public String getFirstName() {

@@ -13,8 +13,8 @@ public class Deposit {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "account")
+    @ManyToOne
+    @JoinColumn(name = "account", nullable = false)
     private Account account;
 
     @Column(nullable = false)

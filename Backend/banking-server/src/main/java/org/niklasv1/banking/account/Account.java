@@ -16,21 +16,9 @@ public class Account {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "owner")
+    @ManyToOne
+    @JoinColumn(name = "owner", nullable = false)
     private Customer owner;
-
-    @OneToMany(mappedBy = "sender")
-    private List<Transaction> transactionsSent;
-
-    @OneToMany(mappedBy = "receiver")
-    private List<Transaction> transactionsReceived;
-
-    @OneToMany(mappedBy = "account")
-    private List<Withdrawal> withdrawals;
-
-    @OneToMany(mappedBy = "account")
-    private List<Deposit> deposits;
 
     @Column(nullable = false, length = 100)
     private String name;
@@ -40,6 +28,16 @@ public class Account {
 
     @Column(nullable = false)
     private boolean frozen;
+
+    public Account() {
+    }
+
+    public Account(Customer owner, String name) {
+        this.owner = owner;
+        this.name = name;
+        balance = 0L;
+        frozen = false;
+    }
 
     public UUID getId() {
         return id;
@@ -55,38 +53,6 @@ public class Account {
 
     public void setOwner(Customer owner) {
         this.owner = owner;
-    }
-
-    public List<Transaction> getTransactionsSent() {
-        return transactionsSent;
-    }
-
-    public void setTransactionsSent(List<Transaction> transactionsSent) {
-        this.transactionsSent = transactionsSent;
-    }
-
-    public List<Transaction> getTransactionsReceived() {
-        return transactionsReceived;
-    }
-
-    public void setTransactionsReceived(List<Transaction> transactionsReceived) {
-        this.transactionsReceived = transactionsReceived;
-    }
-
-    public List<Withdrawal> getWithdrawals() {
-        return withdrawals;
-    }
-
-    public void setWithdrawals(List<Withdrawal> withdrawals) {
-        this.withdrawals = withdrawals;
-    }
-
-    public List<Deposit> getDeposits() {
-        return deposits;
-    }
-
-    public void setDeposits(List<Deposit> deposits) {
-        this.deposits = deposits;
     }
 
     public String getName() {

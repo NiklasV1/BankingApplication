@@ -20,12 +20,12 @@ public class Transaction {
     @Column(nullable = false)
     private Long amount;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "sender")
+    @ManyToOne
+    @JoinColumn(name = "sender", nullable = false)
     private Account sender;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "receiver")
+    @ManyToOne
+    @JoinColumn(name = "receiver", nullable = false)
     private Account receiver;
 
     @Column(nullable = false)
