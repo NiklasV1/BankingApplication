@@ -49,25 +49,23 @@ public class BankController {
     }
 
     public UUID createAccount(AuthData authData, String name) {
+        return accountController.createAccount(authCheck(authData), name);
+    }
+
+
+    // Utils
+    private Customer authCheck(AuthData authData){
         Optional<Customer> cst = customerController.getCustomerById(authData.id());
         if (cst.isEmpty()) {
             throw new IllegalArgumentException("Customer with provided ID does not exist!");
         }
         Customer customer = cst.get();
-
-        authCheck(customer, authData);
-
-        return accountController.createAccount(customer, name);
-    }
-
-
-    // Utils
-    private void authCheck(Customer customer, AuthData authData){
         if (!Objects.equals(authData.username(), customer.getUsername())) {
             throw new IllegalArgumentException("Wrong username!");
         }
         if (!Arrays.equals(HashGenerator.sha256(authData.plainPassword()), customer.getPassword())) {
             throw new IllegalArgumentException("Wrong password!");
         }
+        return customer;
     }
 }

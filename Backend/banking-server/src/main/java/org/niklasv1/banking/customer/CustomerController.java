@@ -17,12 +17,11 @@ public class CustomerController {
     public UUID createCustomer(Customer customer) {
         PanacheQuery<Customer> query = customerRepository.find("username", customer.getUsername());
 
-        if (query.count() == 0) {
-            customerRepository.persist(customer);
-            return customer.getId();
-        } else {
-            throw new IllegalArgumentException("Customer already exists!");
+        if (query.count() != 0) {
+            throw new IllegalArgumentException("Account with the same name already exists!");
         }
+        customerRepository.persist(customer);
+        return customer.getId();
     }
 
     public List<Customer> getAllCustomers() {
