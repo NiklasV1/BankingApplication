@@ -1,20 +1,20 @@
-package org.niklasv1.banking.endpoints;
+package org.niklasv1.banking.account;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import org.niklasv1.banking.logic.BankController;
+import org.niklasv1.banking.main.BankController;
 
-@Path("/api/deposit")
+@Path("/api/account")
 @ApplicationScoped
-public class DepositResource {
+public class AccountResource {
 
     @Inject
     BankController bankController;
 
     @GET
     public String test() {
-        return "deposit";
+        return "account";
     }
 }

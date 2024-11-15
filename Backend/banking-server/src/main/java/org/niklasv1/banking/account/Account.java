@@ -1,6 +1,10 @@
-package org.niklasv1.banking.model;
+package org.niklasv1.banking.account;
 
 import jakarta.persistence.*;
+import org.niklasv1.banking.customer.Customer;
+import org.niklasv1.banking.deposit.Deposit;
+import org.niklasv1.banking.transaction.Transaction;
+import org.niklasv1.banking.withdrawal.Withdrawal;
 
 import java.util.List;
 import java.util.UUID;

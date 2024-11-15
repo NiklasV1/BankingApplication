@@ -1,4 +1,4 @@
-package org.niklasv1.banking.model;
+package org.niklasv1.banking.withdrawal;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -6,5 +6,5 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.UUID;
 
 @ApplicationScoped
-public class AccountRepository implements PanacheRepositoryBase<Account, UUID> {
+public class WithdrawalRepository implements PanacheRepositoryBase<Withdrawal, UUID> {
 }

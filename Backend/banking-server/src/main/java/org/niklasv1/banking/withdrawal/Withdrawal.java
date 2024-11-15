@@ -1,13 +1,15 @@
-package org.niklasv1.banking.model;
+package org.niklasv1.banking.withdrawal;
 
 import jakarta.persistence.*;
+import org.niklasv1.banking.account.Account;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "deposits")
-public class Deposit {
+@Table(name = "withdrawals")
+public class Withdrawal {
+
     @Id
     @GeneratedValue
     public UUID id;

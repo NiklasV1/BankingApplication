@@ -1,20 +1,20 @@
-package org.niklasv1.banking.endpoints;
+package org.niklasv1.banking.withdrawal;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import org.niklasv1.banking.logic.BankController;
+import org.niklasv1.banking.main.BankController;
 
-@Path("/api/transaction")
+@Path("/api/withdrawal")
 @ApplicationScoped
-public class TransactionResource {
+public class WithdrawalResource {
 
     @Inject
     BankController bankController;
 
     @GET
     public String test() {
-        return "transaction";
+        return "withdrawal";
     }
 }

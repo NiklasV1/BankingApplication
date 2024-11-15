@@ -1,4 +1,4 @@
-package org.niklasv1.banking.model;
+package org.niklasv1.banking.deposit;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
