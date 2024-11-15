@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.niklasv1.banking.account.Account;
 import org.niklasv1.banking.account.AccountController;
-import org.niklasv1.banking.account.AccountIdFormData;
 import org.niklasv1.banking.customer.Customer;
 import org.niklasv1.banking.customer.CustomerController;
 import org.niklasv1.banking.deposit.Deposit;

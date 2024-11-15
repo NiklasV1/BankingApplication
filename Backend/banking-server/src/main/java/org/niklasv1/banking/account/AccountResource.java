@@ -26,31 +26,31 @@ public class AccountResource {
 
     @POST
     @Path("/create")
-    public UUID createAccount(AccountCreateFormData accountCreateFormData) {
+    public UUID createAccount(AccountCreateData accountCreateData) {
         // TODO input validation + Error handling
         AuthData authData = new AuthData(
-                accountCreateFormData.id(),
-                accountCreateFormData.username(),
-                accountCreateFormData.plainPassword()
+                accountCreateData.id(),
+                accountCreateData.username(),
+                accountCreateData.plainPassword()
         );
 
-        return bankController.createAccount(authData, accountCreateFormData.name());
+        return bankController.createAccount(authData, accountCreateData.name());
     }
 
-    public UUID deleteAccount(AccountIdFormData accountIdFormData) {
+    public UUID deleteAccount(AccountIdData accountIdData) {
         // TODO input validation + Error handling
         AuthData authData = new AuthData(
-                accountIdFormData.id(),
-                accountIdFormData.username(),
-                accountIdFormData.plainPassword()
+                accountIdData.id(),
+                accountIdData.username(),
+                accountIdData.plainPassword()
         );
 
-        return bankController.deleteAccount(authData, accountIdFormData.accountId());
+        return bankController.deleteAccount(authData, accountIdData.accountId());
     }
 
-    // TODO
     public List<Account> viewAccounts(AuthData authData) {
-        return null;
+        // TODO input validation + Error handling
+        return bankController.viewAccounts(authData);
     }
 
     // TODO
