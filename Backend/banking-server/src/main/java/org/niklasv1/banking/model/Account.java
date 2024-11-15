@@ -13,6 +13,7 @@ public class Account {
 
     @Column(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner")
     public Customer owner;
 
     @Column(nullable = false, length = 100)
