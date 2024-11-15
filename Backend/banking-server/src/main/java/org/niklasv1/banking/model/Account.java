@@ -23,8 +23,9 @@ public class Account {
     @OneToMany(mappedBy = "receiver")
     public List<Transaction> transactionsReceived;
 
-
+    @OneToMany(mappedBy = "account")
     public List<Withdrawal> withdrawals;
+
 
     public List<Deposit> deposits;
 
