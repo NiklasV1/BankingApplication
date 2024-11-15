@@ -3,14 +3,14 @@ CREATE TABLE customers (
     first_name varchar(100) NOT NULL,
     last_name varchar(100) NOT NULL,
     address varchar(200) NOT NULL,
-    username varchar(50) NOT NULL,
-    password varchar(64) NOT NULL
+    username varchar(50) NOT NULL UNIQUE,
+    password bytea NOT NULL
 );
 
 CREATE TABLE accounts (
     id uuid PRIMARY KEY,
     owner uuid NOT NULL REFERENCES customers(id),
-    name varchar(100) NOT NULL,
+    name varchar(100) NOT NULL UNIQUE,
     balance bigint NOT NULL,
     frozen bool
 );
