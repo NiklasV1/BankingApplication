@@ -4,9 +4,10 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.niklasv1.banking.AuthData;
+import org.niklasv1.banking.HashGenerator;
 import org.niklasv1.banking.customer.Customer;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -52,13 +53,27 @@ public class AccountController {
         return query.list();
     }
 
-    // TODO
-    public String freezeAccount(AuthData authData, UUID accountId) {
-        return null;
+    public String freezeAccount(Account account, String plainPassword) {
+        if (account.isFrozen()) {
+            throw new IllegalStateException("Account is already frozen!");
+        }
+        account.setFrozen(true);
+        String rawUnfreezeCode = account.getId().toString() + plainPassword + account.getName();
+        return Arrays.toString(HashGenerator.sha256(rawUnfreezeCode));
     }
 
-    // TODO
-    public UUID unfreezeAccount(AuthData authData, UUID accountId, String unfreezeCode) {
-        return null;
+    public UUID unfreezeAccount(Account account, String plainPassword, String unfreezeCode) {
+        if (!account.isFrozen()) {
+            throw new IllegalStateException("Account is not frozen!");
+        }
+        String rawUnfreezeCode = account.getId().toString() + plainPassword + account.getName();
+        String realUnfreezeCode = Arrays.toString(HashGenerator.sha256(rawUnfreezeCode));
+
+        if (!realUnfreezeCode.equals(unfreezeCode)) {
+            throw new IllegalArgumentException("Wrong unfreeze code!");
+        }
+
+        account.setFrozen(false);
+        return account.getId();
     }
 }

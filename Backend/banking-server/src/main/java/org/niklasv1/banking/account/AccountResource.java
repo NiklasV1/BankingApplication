@@ -37,6 +37,8 @@ public class AccountResource {
         return bankController.createAccount(authData, accountCreateData.name());
     }
 
+    @POST
+    @Path("/delete")
     public UUID deleteAccount(AccountIdData accountIdData) {
         // TODO input validation + Error handling
         AuthData authData = new AuthData(
@@ -48,18 +50,36 @@ public class AccountResource {
         return bankController.deleteAccount(authData, accountIdData.accountId());
     }
 
+    @GET
+    @Path("/view")
     public List<Account> viewAccounts(AuthData authData) {
         // TODO input validation + Error handling
         return bankController.viewAccounts(authData);
     }
 
-    // TODO
-    public String freezeAccount(AuthData authData, UUID account_id) {
-        return null;
+    @POST
+    @Path("/freeze")
+    public String freezeAccount(AccountIdData accountIdData) {
+        // TODO input validation + Error handling
+        AuthData authData = new AuthData(
+                accountIdData.id(),
+                accountIdData.username(),
+                accountIdData.plainPassword()
+        );
+
+        return bankController.freezeAccount(authData, accountIdData.accountId());
     }
 
-    // TODO
-    public UUID unfreezeAccount(AuthData authData, UUID account_id, String unfreezeCode) {
-        return null;
+    @POST
+    @Path("/unfreeze")
+    public UUID unfreezeAccount(AccountUnfreezeData accountUnfreezeData) {
+        // TODO input validation + Error handling
+        AuthData authData = new AuthData(
+                accountUnfreezeData.id(),
+                accountUnfreezeData.username(),
+                accountUnfreezeData.plainPassword()
+        );
+
+        return bankController.unfreezeAccount(authData, accountUnfreezeData.accountId(), accountUnfreezeData.unfreezeCode());
     }
 }

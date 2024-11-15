@@ -65,26 +65,25 @@ public class BankController {
         return accountController.deleteAccount(account);
     }
 
-    // TODO
     public List<Account> viewAccounts(AuthData authData) {
         Customer customer = authenticateCustomer(authData);
         return accountController.viewAccounts(customer);
     }
 
-    // TODO
-    public String freezeAccount(AuthData authData, UUID account_id) {
-        return null;
+    public String freezeAccount(AuthData authData, UUID accountId) {
+        Account account = authenticateAccount(authData, accountId);
+        return accountController.freezeAccount(account, authData.plainPassword());
     }
 
-    // TODO
-    public UUID unfreezeAccount(AuthData authData, UUID account_id, String unfreezeCode) {
-        return null;
+    public UUID unfreezeAccount(AuthData authData, UUID accountId, String unfreezeCode) {
+        Account account = authenticateAccount(authData, accountId);
+        return accountController.unfreezeAccount(account, authData.plainPassword(), unfreezeCode);
     }
 
 
     // Deposit
     // TODO
-    public UUID makeDeposit(AuthData authData, UUID account_id, Long amount) {
+    public UUID makeDeposit(AuthData authData, UUID accountId, Long amount) {
         return null;
     }
 
@@ -96,7 +95,7 @@ public class BankController {
 
     // Withdrawal
     // TODO
-    public UUID makeWithdrawal(AuthData authData, UUID account_id, Long amount) {
+    public UUID makeWithdrawal(AuthData authData, UUID accountId, Long amount) {
         return null;
     }
 
@@ -108,17 +107,17 @@ public class BankController {
 
     // Transaction
     // TODO
-    public UUID makeTransaction(AuthData authData, UUID sender_id, UUID receiver_id, String message, Long amount) {
+    public UUID makeTransaction(AuthData authData, UUID senderId, UUID receiverId, String message, Long amount) {
         return null;
     }
 
     // TODO
-    public List<Transaction> viewSentTransactions(AuthData authData, UUID account_id) {
+    public List<Transaction> viewSentTransactions(AuthData authData, UUID accountId) {
         return null;
     }
 
     // TODO
-    public List<Transaction> viewReceivedTransactions(AuthData authData, UUID account_id) {
+    public List<Transaction> viewReceivedTransactions(AuthData authData, UUID accountId) {
         return null;
     }
 
