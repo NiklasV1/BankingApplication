@@ -34,7 +34,7 @@ public class WithdrawalResource {
         return bankController.makeWithdrawal(accountAuthData, withdrawalData.amount());
     }
 
-    @GET
+    @POST
     @Path("/view")
     public List<Withdrawal> viewWithdrawals(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling

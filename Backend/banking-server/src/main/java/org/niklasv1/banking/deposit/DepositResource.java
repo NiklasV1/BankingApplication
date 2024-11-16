@@ -33,7 +33,7 @@ public class DepositResource {
         return bankController.makeDeposit(accountAuthData, depositData.amount());
     }
 
-    @GET
+    @POST
     @Path("/view")
     public List<Deposit> viewDeposits(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling

@@ -46,7 +46,7 @@ public class AccountResource {
         return bankController.deleteAccount(accountAuthData);
     }
 
-    @GET
+    @POST
     @Path("/view")
     public List<Account> viewAccounts(AuthData authData) {
         // TODO input validation + Error handling

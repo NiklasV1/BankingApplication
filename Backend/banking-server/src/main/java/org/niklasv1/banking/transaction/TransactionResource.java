@@ -32,7 +32,7 @@ public class TransactionResource {
         return bankController.makeTransaction(accountAuthData, transactionData.receiverId(), transactionData.message(), transactionData.amount());
     }
 
-    @GET
+    @POST
     @Path("/view/sent")
     public List<Transaction> viewSentTransactions(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling
@@ -40,7 +40,7 @@ public class TransactionResource {
         return bankController.viewSentTransactions(accountAuthData);
     }
 
-    @GET
+    @POST
     @Path("/view/received")
     public List<Transaction> viewReceivedTransactions(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling
