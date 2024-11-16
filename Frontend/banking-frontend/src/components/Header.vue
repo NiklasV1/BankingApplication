@@ -1,10 +1,15 @@
 <script>
+export default {
+    props: {
+        text: String
+    }
+}
 </script>
 
 <template>
-    <main>
-        <div class="bg-green-800 h-full flex items-center">
-            <h1 class="text-center font-bold text-5xl text-white w-full">Banking App</h1>
+    <main class="col-start-1 col-end-13 row-span-1">
+        <div class="bg-green-700 h-full flex items-center">
+            <h1 class="text-center font-bold text-5xl text-slate-50 w-full">{{ text }}</h1>
         </div>
     </main>
 </template>
