@@ -31,6 +31,17 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
+    public Transaction() {
+    }
+
+    public Transaction(String message, Long amount, Account sender, Account receiver) {
+        this.message = message;
+        this.amount = amount;
+        this.sender = sender;
+        this.receiver = receiver;
+        timestamp = LocalDateTime.now();
+    }
+
     public UUID getId() {
         return id;
     }

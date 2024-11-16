@@ -107,19 +107,24 @@ public class BankController {
 
 
     // Transaction
-    // TODO
     public UUID makeTransaction(AccountAuthData accountAuthData, UUID receiverId, String message, Long amount) {
-        return null;
+        Account account = authenticateAccount(accountAuthData);
+        Optional<Account> acc = accountController.getAccountById(receiverId);
+        if (acc.isEmpty()) {
+            throw new IllegalStateException("Receiver account does not exist!");
+        }
+        Account receiver = acc.get();
+        return transactionController.makeTransaction(account, receiver, message, amount);
     }
 
-    // TODO
     public List<Transaction> viewSentTransactions(AccountAuthData accountAuthData) {
-        return null;
+        Account account = authenticateAccount(accountAuthData);
+        return transactionController.viewSentTransactions(account);
     }
 
-    // TODO
     public List<Transaction> viewReceivedTransactions(AccountAuthData accountAuthData) {
-        return null;
+        Account account = authenticateAccount(accountAuthData);
+        return transactionController.viewReceivedTransactions(account);
     }
 
 
