@@ -10,7 +10,7 @@ CREATE TABLE customers (
 CREATE TABLE accounts (
     id uuid PRIMARY KEY,
     owner uuid NOT NULL REFERENCES customers(id),
-    name varchar(100) NOT NULL UNIQUE,
+    name varchar(100) NOT NULL,
     balance bigint NOT NULL,
     frozen bool
 );
