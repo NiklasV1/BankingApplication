@@ -24,6 +24,15 @@ public class Withdrawal {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
+    public Withdrawal() {
+    }
+
+    public Withdrawal(Account account, Long amount) {
+        this.account = account;
+        this.amount = amount;
+        timestamp = LocalDateTime.now();
+    }
+
     public UUID getId() {
         return id;
     }
