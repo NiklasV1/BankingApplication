@@ -23,6 +23,15 @@ public class Deposit {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
+    public Deposit() {
+    }
+
+    public Deposit(Account account, Long amount) {
+        this.account = account;
+        this.amount = amount;
+        timestamp = LocalDateTime.now();
+    }
+
     public UUID getId() {
         return id;
     }
