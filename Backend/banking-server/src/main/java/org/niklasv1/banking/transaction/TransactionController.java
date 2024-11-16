@@ -25,7 +25,7 @@ public class TransactionController {
             throw new IllegalStateException("Receiver account is frozen!");
         }
         Long previousSenderBalance = sender.getBalance();
-        Long previousReceiverBalance = sender.getBalance();
+        Long previousReceiverBalance = receiver.getBalance();
         if ((previousSenderBalance - amount) < 0) {
             throw new IllegalArgumentException("Insufficient sender balance!");
         }
