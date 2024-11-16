@@ -2,6 +2,7 @@ package org.niklasv1.banking.account;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -38,7 +39,7 @@ public class AccountResource {
         return bankController.createAccount(authData, accountCreateData.name());
     }
 
-    @POST
+    @DELETE
     @Path("/delete")
     public UUID deleteAccount(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling
