@@ -1,6 +1,6 @@
 <template>
     <main class="w-full h-full bg-slate-200 flex items-center justify-center">
-        <div class="flex flex-col gap-2 min-w-80 max-w-96 border-4 rounded-lg border-green-500 bg-white">
+        <form class="flex flex-col gap-2 min-w-80 max-w-96 border-4 rounded-lg border-green-500 bg-white">
 
             <!-- Header -->
             <h1 class="text-gray-800 h12 text-center w-full font-semibold text-lg pt-2">Customer Login</h1>
@@ -22,11 +22,10 @@
 
             <!-- Buttons -->
             <div class="flex gap-4 items-stretch px-2 pb-2">
-                <button class="text-white bg-green-500 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-green-500 border-4 hover:bg-green-600 hover:border-green-600 focus:outline-none focus:text-green-500 focus:bg-white" @click="loginProcess">Login</button>
-                <button class="text-white bg-green-500 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-green-500 border-4 hover:bg-green-600 hover:border-green-600 focus:outline-none focus:text-green-500 focus:bg-white" @click="registerRedirect">Register</button>
+                <button class="text-white bg-green-500 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-green-500 border-4 hover:bg-green-600 hover:border-green-600 focus:outline-none focus:border-green-600 focus:bg-green-600" @click="loginProcess">Login</button>
+                <button class="text-white bg-green-500 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-green-500 border-4 hover:bg-green-600 hover:border-green-600 focus:outline-none focus:border-green-600 focus:bg-green-600" @click="registerRedirect">Register</button>
             </div>
-
-        </div>
+        </form>
     </main>
 </template>
 
