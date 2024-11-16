@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import org.niklasv1.banking.AccountAuthData;
 import org.niklasv1.banking.AuthData;
 import org.niklasv1.banking.BankController;
 
@@ -39,15 +40,10 @@ public class AccountResource {
 
     @POST
     @Path("/delete")
-    public UUID deleteAccount(AccountIdData accountIdData) {
+    public UUID deleteAccount(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling
-        AuthData authData = new AuthData(
-                accountIdData.id(),
-                accountIdData.username(),
-                accountIdData.plainPassword()
-        );
 
-        return bankController.deleteAccount(authData, accountIdData.accountId());
+        return bankController.deleteAccount(accountAuthData);
     }
 
     @GET
@@ -59,27 +55,23 @@ public class AccountResource {
 
     @POST
     @Path("/freeze")
-    public String freezeAccount(AccountIdData accountIdData) {
+    public String freezeAccount(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling
-        AuthData authData = new AuthData(
-                accountIdData.id(),
-                accountIdData.username(),
-                accountIdData.plainPassword()
-        );
 
-        return bankController.freezeAccount(authData, accountIdData.accountId());
+        return bankController.freezeAccount(accountAuthData);
     }
 
     @POST
     @Path("/unfreeze")
     public UUID unfreezeAccount(AccountUnfreezeData accountUnfreezeData) {
         // TODO input validation + Error handling
-        AuthData authData = new AuthData(
+        AccountAuthData accountAuthData = new AccountAuthData(
                 accountUnfreezeData.id(),
                 accountUnfreezeData.username(),
-                accountUnfreezeData.plainPassword()
+                accountUnfreezeData.plainPassword(),
+                accountUnfreezeData.accountId()
         );
 
-        return bankController.unfreezeAccount(authData, accountUnfreezeData.accountId(), accountUnfreezeData.unfreezeCode());
+        return bankController.unfreezeAccount(accountAuthData, accountUnfreezeData.unfreezeCode());
     }
 }

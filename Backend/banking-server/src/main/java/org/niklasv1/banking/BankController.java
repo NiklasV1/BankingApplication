@@ -11,6 +11,7 @@ import org.niklasv1.banking.deposit.Deposit;
 import org.niklasv1.banking.deposit.DepositController;
 import org.niklasv1.banking.transaction.Transaction;
 import org.niklasv1.banking.transaction.TransactionController;
+import org.niklasv1.banking.withdrawal.Withdrawal;
 import org.niklasv1.banking.withdrawal.WithdrawalController;
 
 import java.util.*;
@@ -60,8 +61,8 @@ public class BankController {
         return accountController.createAccount(authenticateCustomer(authData), name);
     }
 
-    public UUID deleteAccount(AuthData authData, UUID accountId) {
-        Account account = authenticateAccount(authData, accountId);
+    public UUID deleteAccount(AccountAuthData accountAuthData) {
+        Account account = authenticateAccount(accountAuthData);
         return accountController.deleteAccount(account);
     }
 
@@ -70,54 +71,54 @@ public class BankController {
         return accountController.viewAccounts(customer);
     }
 
-    public String freezeAccount(AuthData authData, UUID accountId) {
-        Account account = authenticateAccount(authData, accountId);
-        return accountController.freezeAccount(account, authData.plainPassword());
+    public String freezeAccount(AccountAuthData accountAuthData) {
+        Account account = authenticateAccount(accountAuthData);
+        return accountController.freezeAccount(account, accountAuthData.plainPassword());
     }
 
-    public UUID unfreezeAccount(AuthData authData, UUID accountId, String unfreezeCode) {
-        Account account = authenticateAccount(authData, accountId);
-        return accountController.unfreezeAccount(account, authData.plainPassword(), unfreezeCode);
+    public UUID unfreezeAccount(AccountAuthData accountAuthData, String unfreezeCode) {
+        Account account = authenticateAccount(accountAuthData);
+        return accountController.unfreezeAccount(account, accountAuthData.plainPassword(), unfreezeCode);
     }
 
 
     // Deposit
-    // TODO
-    public UUID makeDeposit(AuthData authData, UUID accountId, Long amount) {
-        return null;
+    public UUID makeDeposit(AccountAuthData accountAuthData, Long amount) {
+        Account account = authenticateAccount(accountAuthData);
+        return depositController.makeDeposit(account, amount);
     }
 
-    // TODO
-    public List<Deposit> viewDeposits(AuthData authData) {
-        return null;
+    public List<Deposit> viewDeposits(AccountAuthData accountAuthData) {
+        Account account = authenticateAccount(accountAuthData);
+        return depositController.viewDeposits(account);
     }
 
 
     // Withdrawal
-    // TODO
-    public UUID makeWithdrawal(AuthData authData, UUID accountId, Long amount) {
-        return null;
+    public UUID makeWithdrawal(AccountAuthData accountAuthData, Long amount) {
+        Account account = authenticateAccount(accountAuthData);
+        return withdrawalController.makeWithdrawal(account, amount);
     }
 
-    // TODO
-    public List<Deposit> viewWithdrawals(AuthData authData) {
-        return null;
+    public List<Withdrawal> viewWithdrawals(AccountAuthData accountAuthData) {
+        Account account = authenticateAccount(accountAuthData);
+        return withdrawalController.viewWithdrawal(account);
     }
 
 
     // Transaction
     // TODO
-    public UUID makeTransaction(AuthData authData, UUID senderId, UUID receiverId, String message, Long amount) {
+    public UUID makeTransaction(AccountAuthData accountAuthData, UUID receiverId, String message, Long amount) {
         return null;
     }
 
     // TODO
-    public List<Transaction> viewSentTransactions(AuthData authData, UUID accountId) {
+    public List<Transaction> viewSentTransactions(AccountAuthData accountAuthData) {
         return null;
     }
 
     // TODO
-    public List<Transaction> viewReceivedTransactions(AuthData authData, UUID accountId) {
+    public List<Transaction> viewReceivedTransactions(AccountAuthData accountAuthData) {
         return null;
     }
 
@@ -138,9 +139,15 @@ public class BankController {
         return customer;
     }
 
-    private Account authenticateAccount(AuthData authData, UUID accountId) {
+    private Account authenticateAccount(AccountAuthData accountAuthData) {
+        AuthData authData = new AuthData(
+                accountAuthData.id(),
+                accountAuthData.username(),
+                accountAuthData.plainPassword()
+        );
+
         Customer customer = authenticateCustomer(authData);
-        Optional<Account> acc = accountController.getAccountById(accountId);
+        Optional<Account> acc = accountController.getAccountById(accountAuthData.id());
         if (acc.isEmpty()) {
             throw new IllegalArgumentException("Account with provided ID does not exist!");
         }
