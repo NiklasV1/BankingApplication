@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.niklasv1.banking.account.Account;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,13 +37,39 @@ public class TransactionController {
         return transaction.getId();
     }
 
-    public List<Transaction> viewSentTransactions(Account account) {
-        PanacheQuery<Transaction> query = transactionRepository.find("sender", account);
-        return query.list();
+    public List<TransactionResponseData> viewSentTransactions(Account account) {
+        List<Transaction> transactions = account.getSentTransactions();
+        List<TransactionResponseData> responseData = new ArrayList<>();
+
+        for (Transaction transaction : transactions) {
+            responseData.add(new TransactionResponseData(
+                    transaction.getId(),
+                    transaction.getMessage(),
+                    transaction.getAmount(),
+                    transaction.getSender().getId(),
+                    transaction.getReceiver().getId(),
+                    transaction.getTimestamp()
+            ));
+        }
+
+        return responseData;
     }
 
-    public List<Transaction> viewReceivedTransactions(Account account) {
-        PanacheQuery<Transaction> query = transactionRepository.find("receiver", account);
-        return query.list();
+    public List<TransactionResponseData> viewReceivedTransactions(Account account) {
+        List<Transaction> transactions = account.getReceivedTransactions();
+        List<TransactionResponseData> responseData = new ArrayList<>();
+
+        for (Transaction transaction : transactions) {
+            responseData.add(new TransactionResponseData(
+                    transaction.getId(),
+                    transaction.getMessage(),
+                    transaction.getAmount(),
+                    transaction.getSender().getId(),
+                    transaction.getReceiver().getId(),
+                    transaction.getTimestamp()
+            ));
+        }
+
+        return responseData;
     }
 }

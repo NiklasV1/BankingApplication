@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.niklasv1.banking.account.Account;
 import org.niklasv1.banking.deposit.Deposit;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,8 +32,19 @@ public class WithdrawalController {
         return withdrawal.getId();
     }
 
-    public List<Withdrawal> viewWithdrawal(Account account) {
-        PanacheQuery<Withdrawal> query = withdrawalRepository.find("account", account);
-        return query.list();
+    public List<WithdrawalResponseData> viewWithdrawal(Account account) {
+        List<Withdrawal> withdrawals = account.getWithdrawals();
+        List<WithdrawalResponseData> responseData = new ArrayList<>();
+
+        for (Withdrawal withdrawal : withdrawals) {
+            responseData.add(new WithdrawalResponseData(
+                    withdrawal.getId(),
+                    withdrawal.getAccount().getId(),
+                    withdrawal.getAmount(),
+                    withdrawal.getTimestamp()
+            ));
+        }
+
+        return responseData;
     }
 }

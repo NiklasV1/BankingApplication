@@ -5,14 +5,16 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.niklasv1.banking.account.Account;
 import org.niklasv1.banking.account.AccountController;
+import org.niklasv1.banking.account.AccountResponseData;
 import org.niklasv1.banking.customer.Customer;
 import org.niklasv1.banking.customer.CustomerController;
-import org.niklasv1.banking.deposit.Deposit;
+import org.niklasv1.banking.customer.CustomerResponseData;
 import org.niklasv1.banking.deposit.DepositController;
-import org.niklasv1.banking.transaction.Transaction;
+import org.niklasv1.banking.deposit.DepositResponseData;
 import org.niklasv1.banking.transaction.TransactionController;
-import org.niklasv1.banking.withdrawal.Withdrawal;
+import org.niklasv1.banking.transaction.TransactionResponseData;
 import org.niklasv1.banking.withdrawal.WithdrawalController;
+import org.niklasv1.banking.withdrawal.WithdrawalResponseData;
 
 import java.util.*;
 
@@ -46,14 +48,14 @@ public class BankController {
     }
 
     // TODO remove after testing
-    public List<Customer> getAllCustomers() {
+    public List<CustomerResponseData> getAllCustomers() {
         return customerController.getAllCustomers();
     }
 
 
     // Account
     // TODO remove after testing
-    public List<Account> getAllAccounts() {
+    public List<AccountResponseData> getAllAccounts() {
         return accountController.getAllAccounts();
     }
 
@@ -66,7 +68,7 @@ public class BankController {
         return accountController.deleteAccount(account);
     }
 
-    public List<Account> viewAccounts(AuthData authData) {
+    public List<AccountResponseData> viewAccounts(AuthData authData) {
         Customer customer = authenticateCustomer(authData);
         return accountController.viewAccounts(customer);
     }
@@ -88,7 +90,7 @@ public class BankController {
         return depositController.makeDeposit(account, amount);
     }
 
-    public List<Deposit> viewDeposits(AccountAuthData accountAuthData) {
+    public List<DepositResponseData> viewDeposits(AccountAuthData accountAuthData) {
         Account account = authenticateAccount(accountAuthData);
         return depositController.viewDeposits(account);
     }
@@ -100,7 +102,7 @@ public class BankController {
         return withdrawalController.makeWithdrawal(account, amount);
     }
 
-    public List<Withdrawal> viewWithdrawals(AccountAuthData accountAuthData) {
+    public List<WithdrawalResponseData> viewWithdrawals(AccountAuthData accountAuthData) {
         Account account = authenticateAccount(accountAuthData);
         return withdrawalController.viewWithdrawal(account);
     }
@@ -117,12 +119,12 @@ public class BankController {
         return transactionController.makeTransaction(account, receiver, message, amount);
     }
 
-    public List<Transaction> viewSentTransactions(AccountAuthData accountAuthData) {
+    public List<TransactionResponseData> viewSentTransactions(AccountAuthData accountAuthData) {
         Account account = authenticateAccount(accountAuthData);
         return transactionController.viewSentTransactions(account);
     }
 
-    public List<Transaction> viewReceivedTransactions(AccountAuthData accountAuthData) {
+    public List<TransactionResponseData> viewReceivedTransactions(AccountAuthData accountAuthData) {
         Account account = authenticateAccount(accountAuthData);
         return transactionController.viewReceivedTransactions(account);
     }
@@ -152,7 +154,7 @@ public class BankController {
         );
 
         Customer customer = authenticateCustomer(authData);
-        Optional<Account> acc = accountController.getAccountById(accountAuthData.id());
+        Optional<Account> acc = accountController.getAccountById(accountAuthData.accountId());
         if (acc.isEmpty()) {
             throw new IllegalArgumentException("Account with provided ID does not exist!");
         }

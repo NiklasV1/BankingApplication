@@ -16,7 +16,19 @@ public class Account {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "account")
+    private List<Deposit> deposits;
+
+    @OneToMany(mappedBy = "account")
+    private List<Withdrawal> withdrawals;
+
+    @OneToMany(mappedBy = "sender")
+    private List<Transaction> sentTransactions;
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Transaction> receivedTransactions;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner", nullable = false)
     private Customer owner;
 
@@ -37,6 +49,22 @@ public class Account {
         this.name = name;
         balance = 0L;
         frozen = false;
+    }
+
+    public List<Deposit> getDeposits() {
+        return deposits;
+    }
+
+    public List<Withdrawal> getWithdrawals() {
+        return withdrawals;
+    }
+
+    public List<Transaction> getSentTransactions() {
+        return sentTransactions;
+    }
+
+    public List<Transaction> getReceivedTransactions() {
+        return receivedTransactions;
     }
 
     public UUID getId() {

@@ -22,7 +22,7 @@ public class AccountResource {
 
     @GET
     @Path("/all")
-    public List<Account> getAllAccounts() {
+    public List<AccountResponseData> getAllAccounts() {
         return bankController.getAllAccounts();
     }
 
@@ -49,7 +49,7 @@ public class AccountResource {
 
     @POST
     @Path("/view")
-    public List<Account> viewAccounts(AuthData authData) {
+    public List<AccountResponseData> viewAccounts(AuthData authData) {
         // TODO input validation + Error handling
         return bankController.viewAccounts(authData);
     }

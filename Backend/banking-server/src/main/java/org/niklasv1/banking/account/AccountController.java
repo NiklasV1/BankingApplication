@@ -7,10 +7,7 @@ import jakarta.transaction.Transactional;
 import org.niklasv1.banking.HashGenerator;
 import org.niklasv1.banking.customer.Customer;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @ApplicationScoped
 @Transactional
@@ -19,8 +16,21 @@ public class AccountController {
     @Inject
     AccountRepository accountRepository;
 
-    public List<Account> getAllAccounts() {
-        return accountRepository.listAll();
+    public List<AccountResponseData> getAllAccounts() {
+        List<Account> accounts = accountRepository.listAll();
+        List<AccountResponseData> responseData = new ArrayList<>();
+
+        for (Account account : accounts) {
+            responseData.add(new AccountResponseData(
+                    account.getId(),
+                    account.getOwner().getId(),
+                    account.getName(),
+                    account.getBalance(),
+                    account.isFrozen()
+            ));
+        }
+
+        return responseData;
     }
 
     public Optional<Account> getAccountById(UUID id) {
@@ -28,12 +38,6 @@ public class AccountController {
     }
 
     public UUID createAccount(Customer customer, String name) {
-        PanacheQuery<Account> query = accountRepository.find("name", name);
-
-        if (query.count() != 0) {
-            throw new IllegalArgumentException("Account already exists!");
-        }
-
         Account account = new Account(customer, name);
         accountRepository.persist(account);
         return account.getId();
@@ -48,9 +52,21 @@ public class AccountController {
         return deletedId;
     }
 
-    public List<Account> viewAccounts(Customer customer) {
-        PanacheQuery<Account> query = accountRepository.find("owner", customer);
-        return query.list();
+    public List<AccountResponseData> viewAccounts(Customer customer) {
+        List<Account> accounts = customer.getAccounts();
+        List<AccountResponseData> responseData = new ArrayList<>();
+
+        for (Account account : accounts) {
+            responseData.add(new AccountResponseData(
+                    account.getId(),
+                    account.getOwner().getId(),
+                    account.getName(),
+                    account.getBalance(),
+                    account.isFrozen()
+            ));
+        }
+
+        return responseData;
     }
 
     public String freezeAccount(Account account, String plainPassword) {

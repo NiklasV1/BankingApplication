@@ -34,7 +34,7 @@ public class TransactionResource {
 
     @POST
     @Path("/view/sent")
-    public List<Transaction> viewSentTransactions(AccountAuthData accountAuthData) {
+    public List<TransactionResponseData> viewSentTransactions(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling
 
         return bankController.viewSentTransactions(accountAuthData);
@@ -42,7 +42,7 @@ public class TransactionResource {
 
     @POST
     @Path("/view/received")
-    public List<Transaction> viewReceivedTransactions(AccountAuthData accountAuthData) {
+    public List<TransactionResponseData> viewReceivedTransactions(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling
 
         return bankController.viewReceivedTransactions(accountAuthData);

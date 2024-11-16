@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.niklasv1.banking.AuthData;
 import org.niklasv1.banking.account.Account;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,8 +29,19 @@ public class DepositController {
         return deposit.getId();
     }
 
-    public List<Deposit> viewDeposits(Account account) {
-        PanacheQuery<Deposit> query = depositRepository.find("account", account);
-        return query.list();
+    public List<DepositResponseData> viewDeposits(Account account) {
+        List<Deposit> deposits = account.getDeposits();
+        List<DepositResponseData> responseData = new ArrayList<>();
+
+        for (Deposit deposit : deposits) {
+            responseData.add(new DepositResponseData(
+                    deposit.getId(),
+                    deposit.getAccount().getId(),
+                    deposit.getAmount(),
+                    deposit.getTimestamp()
+            ));
+        }
+
+        return responseData;
     }
 }

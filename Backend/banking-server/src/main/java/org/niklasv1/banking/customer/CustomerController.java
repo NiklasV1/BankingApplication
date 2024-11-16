@@ -5,7 +5,6 @@ import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.niklasv1.banking.AuthData;
 
 import java.util.*;
 
@@ -36,8 +35,27 @@ public class CustomerController {
         return customer.getId();
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerRepository.listAll();
+    public List<CustomerResponseData> getAllCustomers() {
+        List<Customer> customers = customerRepository.listAll();
+        List<CustomerResponseData> responseData = new ArrayList<>();
+
+
+            for (Customer customer : customers) {
+                StringBuilder passwordHash = new StringBuilder();
+                for (byte b : customer.getPassword()) {
+                    passwordHash.append(String.format("%02x", b));
+                }
+                responseData.add(new CustomerResponseData(
+                        customer.getId(),
+                        customer.getFirstName(),
+                        customer.getLastName(),
+                        customer.getAddress(),
+                        customer.getUsername(),
+                        passwordHash.toString()
+                ));
+            }
+
+        return responseData;
     }
 
     public Optional<Customer> getCustomerById(UUID id) {

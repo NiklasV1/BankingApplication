@@ -35,7 +35,7 @@ public class DepositResource {
 
     @POST
     @Path("/view")
-    public List<Deposit> viewDeposits(AccountAuthData accountAuthData) {
+    public List<DepositResponseData> viewDeposits(AccountAuthData accountAuthData) {
         // TODO input validation + Error handling
 
         return bankController.viewDeposits(accountAuthData);

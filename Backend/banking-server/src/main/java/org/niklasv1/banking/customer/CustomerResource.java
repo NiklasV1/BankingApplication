@@ -22,7 +22,7 @@ public class CustomerResource {
 
     @GET
     @Path("/all")
-    public List<Customer> getAllCustomers() {
+    public List<CustomerResponseData> getAllCustomers() {
         return bankController.getAllCustomers();
     }
 
