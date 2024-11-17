@@ -3,11 +3,12 @@
     import SidebarOption from './SidebarOption.vue';
     import { defineEmits } from 'vue';
 
-    const emit = defineEmits(["logout"]);
+    const emit = defineEmits(["logout", "select"]);
     const selected = ref(1);
 
     function selectOption(x) {
         selected.value = x;
+        emit("select", x)
     }
 </script>
 

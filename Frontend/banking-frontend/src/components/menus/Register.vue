@@ -40,7 +40,7 @@ async function registerCustomer() {
 
 <template>
     <main class="w-full h-full bg-slate-200 flex items-center justify-center">
-        <div class="flex flex-col gap-2 min-w-96 border-2 rounded-lg border-slate-800 p-2 bg-slate-800">
+        <div class="flex flex-col gap-2 min-w-96 border-2 rounded-lg border-slate-800 p-2 bg-slate-800 shadow-lg">
 
             <!-- Header -->
             <h1 class="text-white h12 text-center w-full font-semibold text-lg">Customer Registration</h1>

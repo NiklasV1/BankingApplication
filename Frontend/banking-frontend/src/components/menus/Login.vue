@@ -36,7 +36,7 @@ function registerRedirect(){
 
 <template>
     <main class="w-full h-full bg-slate-200 flex items-center justify-center">
-        <div class="flex flex-col gap-2 min-w-80 max-w-96 border-4 rounded-lg border-slate-800 bg-slate-800 p-2">
+        <div class="flex flex-col gap-2 min-w-80 max-w-96 border-4 rounded-lg border-slate-800 bg-slate-800 p-2 shadow-lg">
 
             <!-- Header -->
             <h1 class="text-white h12 text-center w-full font-semibold text-lg">Customer Login</h1>

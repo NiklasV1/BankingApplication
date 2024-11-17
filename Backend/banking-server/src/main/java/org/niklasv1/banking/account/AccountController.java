@@ -1,6 +1,5 @@
 package org.niklasv1.banking.account;
 
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -83,9 +82,16 @@ public class AccountController {
             throw new IllegalStateException("Account is not frozen!");
         }
         String rawUnfreezeCode = account.getId().toString() + plainPassword + account.getName();
-        String realUnfreezeCode = Arrays.toString(HashGenerator.sha256(rawUnfreezeCode));
+        byte[] rawUnfreezeCode2 = HashGenerator.sha256(rawUnfreezeCode);
+        StringBuilder realUnfreezeCode = new StringBuilder();
+        for (byte b : rawUnfreezeCode2) {
+            realUnfreezeCode.append(String.format("%02x", b));
+        }
 
-        if (!realUnfreezeCode.equals(unfreezeCode)) {
+
+        System.out.println(realUnfreezeCode.toString());
+
+        if (!realUnfreezeCode.toString().equals(unfreezeCode)) {
             throw new IllegalArgumentException("Wrong unfreeze code!");
         }
 
