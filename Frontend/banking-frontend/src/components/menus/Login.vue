@@ -45,14 +45,14 @@ function registerRedirect(){
 
             <!-- Username -->
             <div class="flex flex-col gap-1 px-2">
-                <label for="username" class="text-white font-semibold">Username</label>
-                <input id="username" v-model="username" class="bg-slate-800 text-white placeholder:text-gray-400 w-full h-12 border-2 border-white rounded-lg p-2 focus:border-blue-800 focus:outline-none" type="text" placeholder="Username"/>
+                <label class="text-white font-semibold">Username</label>
+                <input v-model="username" class="bg-slate-800 text-white placeholder:text-gray-400 w-full h-12 border-2 border-white rounded-lg p-2 focus:border-blue-800 focus:outline-none" type="text" placeholder="Username"/>
             </div>
 
             <!-- Password -->
             <div class="flex flex-col gap-1 px-2">
-                <label for="password" class="text-white font-semibold">Password</label>
-                <input id="password" v-model="password" class="bg-slate-800 text-white placeholder:text-gray-400 w-full h-12 border-2 border-white rounded-lg p-2 focus:border-blue-800 focus:outline-none" type="password" placeholder="Password"/>
+                <label class="text-white font-semibold">Password</label>
+                <input v-model="password" class="bg-slate-800 text-white placeholder:text-gray-400 w-full h-12 border-2 border-white rounded-lg p-2 focus:border-blue-800 focus:outline-none" type="password" placeholder="Password"/>
             </div>
             <hr class="h-0 border-t-2 border-white my-2">
             
