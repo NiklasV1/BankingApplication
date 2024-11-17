@@ -13,7 +13,7 @@
 </script>
 
 <template>
-    <main class="bg-slate-800 min-w-52 flex flex-col">
+    <main class="bg-slate-800 min-w-64 flex flex-col">
         <div class="w-full text-left pl-5 py-2 font-semibold text-white">Menu</div>
         <div class="flex flex-col items-start">
             <SidebarOption @selected="selectOption(1)" text="Accounts" icon="account_balance" option="1" :selected="selected"/>

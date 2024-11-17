@@ -24,10 +24,10 @@ function deleteAccount(id, balance) {
 
 <template>
     <tr>
-        <td class="py-4 px-6 border-b border-gray-200 text-slate-900">{{ name }}</td>
-        <td class="py-4 px-6 border-b border-gray-200 text-slate-900 font-mono">{{ accountId }}</td>
-        <td class="py-4 px-6 border-b border-gray-200 text-slate-900">{{ balance }}</td>
-        <td class="py-4 px-6 border-b border-gray-200 text-slate-900">
+        <td class="py-4 px-6 border-b border-gray-200 text-slate-900 border-r">{{ name }}</td>
+        <td class="py-4 px-6 border-b border-gray-200 text-slate-900 font-mono border-r">{{ accountId }}</td>
+        <td class="py-4 px-6 border-b border-gray-200 text-slate-900 border-r">{{ balance }}</td>
+        <td class="py-4 px-6 border-b border-gray-200 text-slate-900 border-r flex items-center justify-center">
             <span :class="`${frozen ? 'bg-red-500' : 'bg-green-500'}`" class="bg-green-500 text-white py-1 px-2 rounded-full text-xs shadow-md">{{ frozen ? "Frozen" : "Active" }}</span>
         </td>
         <td class="py-2 px-6 border-b border-gray-200 text-slate-900">
