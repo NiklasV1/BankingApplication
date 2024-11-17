@@ -20,16 +20,28 @@ export default {
         }
     },
     mounted() {
-        axios.get(`${this.apiEndpoint}/all`).then(response => {
-            this.accounts = response.data
-            console.log(this.accounts)
-        })
+        this.refreshAcounts()
     },
     methods: {
         refreshAcounts() {
-            axios.get(`${this.apiEndpoint}/all`).then(response => {
+            axios.post(`${this.apiEndpoint}/view`, {
+                id: this.auth_id,
+                username: this.auth_usr,
+                plainPassword: this.auth_pw
+            }).then(response => {
                 this.accounts = response.data
                 console.log(this.accounts)
+            })
+        },
+        create(name) {
+            axios.post(`${this.apiEndpoint}/create`, {
+                id: this.auth_id,
+                username: this.auth_usr,
+                plainPassword: this.auth_pw,
+                name: name
+            }).then(response => {
+                console.log(response.data)
+                this.refreshAcounts()
             })
         },
         freeze(accountId) {
@@ -89,7 +101,7 @@ export default {
                 <label class="font-bold text-sm text-slate-900 pb-1">Create Account</label>
                 <input class="shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg" placeholder="Name" v-model="newAccountName" type="text"/>
             </div>
-            <button @click="refreshAcounts" class="shadow-lg hover:bg-blue-600 hover:border-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-blue-500 border-blue-500 text-white font-semibold px-2 h-10 border-2 rounded-lg">Create</button>
+            <button @click="create(newAccountName)" class="shadow-lg hover:bg-blue-600 hover:border-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-blue-500 border-blue-500 text-white font-semibold px-2 h-10 border-2 rounded-lg">Create</button>
         </div>
     </main>
 </template>

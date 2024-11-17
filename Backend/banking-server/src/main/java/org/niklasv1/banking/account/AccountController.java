@@ -74,7 +74,13 @@ public class AccountController {
         }
         account.setFrozen(true);
         String rawUnfreezeCode = account.getId().toString() + plainPassword + account.getName();
-        return Arrays.toString(HashGenerator.sha256(rawUnfreezeCode));
+        byte[] rawUnfreezeCode2 = HashGenerator.sha256(rawUnfreezeCode);
+        StringBuilder realUnfreezeCode = new StringBuilder();
+        for (byte b : rawUnfreezeCode2) {
+            realUnfreezeCode.append(String.format("%02x", b));
+        }
+
+        return "UNFREEZE CODE (for manual unfreeze): " + realUnfreezeCode.toString();
     }
 
     public UUID unfreezeAccount(Account account, String plainPassword, String unfreezeCode) {
@@ -87,9 +93,6 @@ public class AccountController {
         for (byte b : rawUnfreezeCode2) {
             realUnfreezeCode.append(String.format("%02x", b));
         }
-
-
-        System.out.println(realUnfreezeCode.toString());
 
         if (!realUnfreezeCode.toString().equals(unfreezeCode)) {
             throw new IllegalArgumentException("Wrong unfreeze code!");
