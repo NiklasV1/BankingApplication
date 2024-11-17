@@ -87,16 +87,18 @@ export default {
 
 <template>
     <main class="h-full w-full flex flex-col items-center">
-        <h1 class="text-center text-2xl font-semibold text-slate-800 mt-20 mb-2">Accounts</h1>
+        <div class="mt-20 mb-4">
+            <h1 class="text-center text-2xl font-semibold text-slate-800 select-none">Accounts</h1>
+        </div>
         <div class="shadow-lg rounded-lg overflow-hidden mx-4 md:mx-10">
             <table class="table-auto">
                 <thead>
                     <tr class="bg-gray-100">
-                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase">Name</th>
-                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase">Number</th>
-                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase">Balance</th>
-                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase">Status</th>
-                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase">Manage</th>
+                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase select-none">Name</th>
+                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase select-none">Number</th>
+                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase select-none">Balance</th>
+                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase select-none">Status</th>
+                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase select-none">Manage</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white">
@@ -104,12 +106,12 @@ export default {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="py-4 px-6 border-b border-gray-200 text-slate-900">
-                            <label class="font-bold text-slate-900 pb-1 select-none">New Account</label>
-                        </td>
-                        <td class="py-4 px-6 border-b border-gray-200 text-slate-900 flex gap-2">
-                            <input class="shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg" placeholder="Name" v-model="newAccountName" type="text"/>
-                            <button @click="create(newAccountName)" class="shadow-lg hover:bg-blue-600 hover:border-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-blue-500 border-blue-500 text-white font-semibold h-10 border-2 rounded-lg w-20">Create</button>
+                        <td class="py-4 px-6 border-b border-gray-200 text-slate-900" colspan="5">
+                            <div class="flex justify-center items-center gap-4">
+                                <label class="font-bold text-slate-900 pb-1 select-none">New Account</label>
+                                <input class="shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg" placeholder="Name" v-model="newAccountName" type="text"/>
+                                <button @click="create(newAccountName)" class="shadow-lg hover:bg-blue-600 hover:border-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-blue-500 border-blue-500 text-white font-semibold h-10 border-2 rounded-lg w-20">Create</button>
+                            </div>
                         </td>
                     </tr>
                 </tfoot>

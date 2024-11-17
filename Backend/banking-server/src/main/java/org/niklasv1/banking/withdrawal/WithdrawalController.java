@@ -5,8 +5,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.niklasv1.banking.account.Account;
-import org.niklasv1.banking.deposit.Deposit;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +24,7 @@ public class WithdrawalController {
         }
         Long previousBalance = account.getBalance();
         if ((previousBalance - amount) < 0L) {
-            throw new IllegalStateException("Balance to low!");
+            throw new IllegalStateException("Balance too low!");
         }
         Withdrawal withdrawal = new Withdrawal(account, amount);
         withdrawalRepository.persist(withdrawal);
@@ -41,7 +41,7 @@ public class WithdrawalController {
                     withdrawal.getId(),
                     withdrawal.getAccount().getId(),
                     withdrawal.getAmount(),
-                    withdrawal.getTimestamp()
+                    withdrawal.getTimestamp().format(DateTimeFormatter.ofPattern("hh:mm:ss dd-MM-yyyy"))
             ));
         }
 

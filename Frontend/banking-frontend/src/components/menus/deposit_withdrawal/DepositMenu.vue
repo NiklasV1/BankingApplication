@@ -1,17 +1,13 @@
 <script setup>
 import DepositRow from './DepositRow.vue';
 import { defineProps } from 'vue';
-import { ref } from 'vue';
 import axios from 'axios';
 
 const props = defineProps(["auth_id", "auth_usr", "auth_pw"])
 
-const newAccountName = ref("");
 </script>
 
 <script>
-import { sha3_256 } from 'js-sha3';
-
 export default {
     data() {
         return {
@@ -79,7 +75,7 @@ export default {
 <template>
     <main class="h-full w-full flex flex-col items-center">
         <div class="mt-20 mb-4 flex gap-4">
-            <h1 class="text-center text-2xl font-semibold text-slate-800">Deposits</h1>
+            <h1 class="text-center text-2xl font-semibold text-slate-800 select-none">Deposits</h1>
             <select @change="refreshDeposits" v-model="selectedAccount" class="w-90 text-slate-800 font-semibold font-mono px-2">
                 <option disabled value="" class="font-mono">Select an Account</option>
                 <option v-for="acc in accounts" class="font-mono">{{ acc }}</option>
@@ -89,10 +85,10 @@ export default {
             <table class="table-auto">
                 <thead>
                     <tr class="bg-gray-100">
-                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase">ID</th>
-                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase">Amount</th>
-                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase">Date</th>
-                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase">Status</th>
+                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase select-none">Deposit-ID</th>
+                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase select-none">Amount</th>
+                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase select-none">Date</th>
+                        <th class="py-4 px-6 text-left text-gray-600 font-bold uppercase select-none">Status</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white">
@@ -100,16 +96,12 @@ export default {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="py-4 px-6 border-b border-gray-200 text-slate-900">
-                            <div class="flex justify-end">
+                        <td class="py-4 px-6 border-b border-gray-200 text-slate-900" colspan="4">
+                            <div class="flex justify-center items-center gap-4">
                                 <label class="font-bold text-slate-900 pb-1 select-none">New Deposit</label>
+                                <input class="w-36 shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg" placeholder="Amount" v-model="newAmount" type="number"/>
+                                <button @click="makeDeposit" class="shadow-lg hover:bg-blue-600 hover:border-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-blue-500 border-blue-500 text-white font-semibold h-10 border-2 rounded-lg w-20">Create</button>
                             </div>
-                        </td>
-                        <td class="py-4 px-6 border-b border-gray-200 text-slate-900">
-                            <input class="w-36 shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg" placeholder="Amount" v-model="newAmount" type="number"/>
-                        </td>
-                        <td class="py-4 px-6 border-b border-gray-200 text-slate-900">
-                            <button @click="makeDeposit" class="shadow-lg hover:bg-blue-600 hover:border-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-blue-500 border-blue-500 text-white font-semibold h-10 border-2 rounded-lg w-20">Create</button>
                         </td>
                     </tr>
                 </tfoot>
