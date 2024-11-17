@@ -44,6 +44,17 @@ export default {
                 this.refreshAcounts()
             })
         },
+        deleteAccount(id) {
+            axios.post(`${this.apiEndpoint}/delete`, {
+                id: this.auth_id,
+                username: this.auth_usr,
+                plainPassword: this.auth_pw,
+                accountId: id
+            }).then(response => {
+                console.log(response.data)
+                this.refreshAcounts()
+            })
+        },
         freeze(accountId) {
             axios.post(`${this.apiEndpoint}/freeze`, {
                 id: this.auth_id,
@@ -76,9 +87,7 @@ export default {
 
 <template>
     <main class="h-full w-full flex flex-col items-center">
-        <div class="my-5">
-            <h1 class="text-center text-2xl font-semibold text-slate-800">Accounts</h1>
-        </div>
+        <h1 class="text-center text-2xl font-semibold text-slate-800 mt-20 mb-2">Accounts</h1>
         <div class="shadow-lg rounded-lg overflow-hidden mx-4 md:mx-10">
             <table class="table-auto">
                 <thead>
@@ -91,17 +100,20 @@ export default {
                     </tr>
                 </thead>
                 <tbody class="bg-white">
-                    <AccountRow @freeze="freeze" @unfreeze="unfreeze" v-for="acc in accounts" :name="acc.name" :accountId="acc.accountId" :balance="acc.balance" :frozen="acc.frozen"/>
+                    <AccountRow @deleteAccount="deleteAccount" @freeze="freeze" @unfreeze="unfreeze" v-for="acc in accounts" :name="acc.name" :accountId="acc.accountId" :balance="acc.balance" :frozen="acc.frozen"/>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="py-4 px-6 border-b border-gray-200 text-slate-900">
+                            <label class="font-bold text-slate-900 pb-1 select-none">New Account</label>
+                        </td>
+                        <td class="py-4 px-6 border-b border-gray-200 text-slate-900 flex gap-2">
+                            <input class="shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg" placeholder="Name" v-model="newAccountName" type="text"/>
+                            <button @click="create(newAccountName)" class="shadow-lg hover:bg-blue-600 hover:border-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-blue-500 border-blue-500 text-white font-semibold h-10 border-2 rounded-lg w-20">Create</button>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
-            
-        </div>
-        <div class="flex gap-2 mt-6 items-end">
-            <div class="flex flex-col">
-                <label class="font-bold text-sm text-slate-900 pb-1">Create Account</label>
-                <input class="shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg" placeholder="Name" v-model="newAccountName" type="text"/>
-            </div>
-            <button @click="create(newAccountName)" class="shadow-lg hover:bg-blue-600 hover:border-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-blue-500 border-blue-500 text-white font-semibold px-2 h-10 border-2 rounded-lg">Create</button>
         </div>
     </main>
 </template>
