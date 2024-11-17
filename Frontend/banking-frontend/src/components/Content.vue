@@ -17,7 +17,7 @@ const auth_usr = ref("");
 const auth_pw = ref("");
 
 function loginComplete(id, username, password) {
-    console.log(id + username + password)
+    console.log("Login: " + id + username + password)
     auth_id.value = id;
     auth_usr.value = username;
     auth_pw.value = password;
@@ -29,6 +29,10 @@ function registerCustomer() {
 }
 
 function logout() {
+    auth_id.value = "";
+    auth_usr.value = "";
+    auth_pw.value = "";
+    console.log("Logout: " + auth_id.value + auth_usr.value + auth_pw.value)
     selectedComponent.value = "Login"
 }
 
