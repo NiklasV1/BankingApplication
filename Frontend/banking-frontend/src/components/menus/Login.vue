@@ -22,7 +22,7 @@
 
             <!-- Buttons -->
             <div class="flex gap-4 items-stretch px-2 pb-2">
-                <button class="text-white bg-slate-800 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-white border-2 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:border-blue-800 focus:bg-blue-800" @click="loginProcess()">Login</button>
+                <button class="text-white bg-slate-800 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-white border-2 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:border-blue-800 focus:bg-blue-800" @click="request">Login</button>
                 <button class="text-white bg-slate-800 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-white border-2 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:border-blue-800 focus:bg-blue-800" @click="registerRedirect">Register</button>
             </div>
         </form>
@@ -30,21 +30,15 @@
 </template>
 
 <script setup>
-async function loginProcess() {
-            try {
-                const response = await axios.post('http://127.0.0.1:8080/api/customer/login', {
-                    id: "wdadwwddwawd",
-                    username: 'nv1',
-                    plainPassword: 'pw1'
-                })
-
-                console.error(response.data)
-                //this.$emit("loginComplete", id, username, password);
-            } catch (error) {
-                console.error(error)
-            }
-            
-        }
+async function request() {
+  try {
+    const response = await fetch('http://localhost:8080/api/customer/all');
+    const inner = await response.json();
+    console.log(inner)
+  } catch (error) {
+    console.error(error);
+  }
+}
 </script>
 
 
