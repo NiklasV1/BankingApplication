@@ -1,6 +1,6 @@
 <template>
     <main class="bg-white col-span-full row-start-2 row-end-13">
-        <component @loginComplete="loginComplete" @register="registerCustomer" v-bind:is="selectedComponent"></component>
+        <component @loginComplete="loginComplete" @register="registerCustomer" @logout="logout" v-bind:is="selectedComponent"></component>
     </main>
 </template>
 
@@ -19,11 +19,14 @@ export default {
             selectedComponent: "Login"
         }
     }, methods: {
-        loginComplete() {
+        loginComplete(id, username, password) {
             this.selectedComponent = "MainMenu";
         },
         registerCustomer() {
             this.selectedComponent = "Register";
+        },
+        logout() {
+            this.selectedComponent = "Login"
         }
     }, 
 }
