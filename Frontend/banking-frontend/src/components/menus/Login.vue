@@ -9,11 +9,10 @@ const emit = defineEmits(["loginComplete", "register"])
 
 const customerEndpoint = 'http://localhost:8080/api/customer/login'
 
-const id = ref("");
 const username = ref("");
 const password = ref("");
 
-async function request() {
+async function login() {
     try {
         let usr = username.value
         let pw = password.value
@@ -59,7 +58,7 @@ function registerRedirect(){
 
             <!-- Buttons -->
             <div class="flex gap-4 items-stretch px-2 pb-2">
-                <button class="text-white bg-slate-800 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-white border-2 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:border-blue-800 focus:bg-blue-800" @click="request">Login</button>
+                <button class="text-white bg-slate-800 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-white border-2 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:border-blue-800 focus:bg-blue-800" @click="login">Login</button>
                 <button class="text-white bg-slate-800 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-white border-2 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:border-blue-800 focus:bg-blue-800" @click="registerRedirect">Register</button>
             </div>
         </div>
