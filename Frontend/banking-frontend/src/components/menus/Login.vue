@@ -1,6 +1,43 @@
+<script setup>
+import { ref } from 'vue';
+import { defineEmits } from 'vue';
+import { defineProps } from 'vue';
+import axios from 'axios';
+
+const props = defineProps(["auth_id", "auth_usr", "auth_pw"])
+const emit = defineEmits(["loginComplete", "register"])
+
+const customerEndpoint = 'http://localhost:8080/api/customer/login'
+
+const id = ref("");
+const username = ref("");
+const password = ref("");
+
+async function request() {
+    try {
+        let usr = username.value
+        let pw = password.value
+        const response = await axios.post(customerEndpoint, {
+            username: usr,
+            plainPassword: pw
+        })
+        console.log("CustomerId:" + response.data)
+        emit("loginComplete", response.data, usr, pw)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function registerRedirect(){
+    emit("register")
+}
+</script>
+
+
+
 <template>
     <main class="w-full h-full bg-slate-200 flex items-center justify-center">
-        <form class="flex flex-col gap-2 min-w-80 max-w-96 border-4 rounded-lg border-slate-800 bg-slate-800 p-2">
+        <div class="flex flex-col gap-2 min-w-80 max-w-96 border-4 rounded-lg border-slate-800 bg-slate-800 p-2">
 
             <!-- Header -->
             <h1 class="text-white h12 text-center w-full font-semibold text-lg">Customer Login</h1>
@@ -25,42 +62,6 @@
                 <button class="text-white bg-slate-800 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-white border-2 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:border-blue-800 focus:bg-blue-800" @click="request">Login</button>
                 <button class="text-white bg-slate-800 rounded-lg p-2 text-lg basis-1/2 h-12 font-semibold border-white border-2 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:border-blue-800 focus:bg-blue-800" @click="registerRedirect">Register</button>
             </div>
-        </form>
+        </div>
     </main>
 </template>
-
-<script setup>
-async function request() {
-  try {
-    const response = await fetch('http://localhost:8080/api/customer/all');
-    const inner = await response.json();
-    console.log(inner)
-  } catch (error) {
-    console.error(error);
-  }
-}
-</script>
-
-
-<script>
-const customerEndpoint = 'http://localhost:8080/api/customer/login'
-import { ref } from 'vue';
-import axios from 'axios';
-
-export default {
-    name: "Login",
-    setup() {
-        const id = ref("");
-        const username = ref("");
-        const password = ref("");
-
-        return { id, username, password}
-    },
-    methods: {
-        
-        registerRedirect() {
-            this.$emit("register")
-        }
-    }
-}
-</script>

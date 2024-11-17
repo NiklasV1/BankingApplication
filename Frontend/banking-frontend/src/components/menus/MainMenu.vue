@@ -1,6 +1,9 @@
 <script setup>
 import Sidebar from './Sidebar.vue';
 import { defineEmits } from 'vue';
+import { defineProps } from 'vue';
+const props = defineProps(["auth_id", "auth_usr", "auth_pw"])
+
 
 const emit = defineEmits(["logout"]);
 </script>
@@ -10,9 +13,5 @@ const emit = defineEmits(["logout"]);
 
         <!-- Sidebar -->
         <Sidebar @logout="$emit('logout')"/>
-
-
-
-
     </main>
 </template>

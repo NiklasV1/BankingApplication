@@ -13,6 +13,10 @@ export default {
 
 <script setup>
 import { ref } from "vue";
+import { defineProps } from "vue";
+
+const props = defineProps(["auth_id", "auth_usr", "auth_pw"])
+
 
 const username = ref("");
 const password = ref("");
