@@ -8,6 +8,7 @@ import jakarta.ws.rs.Path;
 import org.niklasv1.banking.AccountAuthData;
 import org.niklasv1.banking.AuthData;
 import org.niklasv1.banking.BankController;
+import org.niklasv1.banking.InputValidator;
 import org.niklasv1.banking.deposit.Deposit;
 
 import java.util.List;
@@ -23,7 +24,8 @@ public class WithdrawalResource {
     @POST
     @Path("/make")
     public UUID makeWithdrawal(WithdrawalData withdrawalData) {
-        // TODO input validation + Error handling
+        InputValidator.checkString(withdrawalData.username(),50);
+        InputValidator.checkString(withdrawalData.plainPassword());
         AccountAuthData accountAuthData = new AccountAuthData(
                 withdrawalData.id(),
                 withdrawalData.username(),
@@ -37,8 +39,7 @@ public class WithdrawalResource {
     @POST
     @Path("/view")
     public List<WithdrawalResponseData> viewWithdrawals(AccountAuthData accountAuthData) {
-        // TODO input validation + Error handling
-
+        InputValidator.checkAccountAuthData(accountAuthData);
         return bankController.viewWithdrawals(accountAuthData);
     }
 }

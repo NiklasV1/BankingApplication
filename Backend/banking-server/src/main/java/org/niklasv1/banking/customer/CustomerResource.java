@@ -8,6 +8,7 @@ import jakarta.ws.rs.Path;
 import org.niklasv1.banking.AuthData;
 import org.niklasv1.banking.BankController;
 import org.niklasv1.banking.HashGenerator;
+import org.niklasv1.banking.InputValidator;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,18 +30,23 @@ public class CustomerResource {
     @POST
     @Path("/login")
     public UUID loginCustomer(AuthData authData) {
-        // TODO input validation + Error handling
+        InputValidator.checkAuthData(authData);
         return bankController.loginCustomer(authData);
     }
 
     @POST
     @Path("/register")
     public UUID registerCustomer(CustomerFormData customerFormData) {
-        // TODO input validation + Error handling
+        InputValidator.checkString(customerFormData.firstName(), 100);
+        InputValidator.checkString(customerFormData.lastName(), 100);
+        InputValidator.checkString(customerFormData.address(), 200);
+        InputValidator.checkString(customerFormData.username(), 50);
+        InputValidator.checkString(customerFormData.plainPassword());
         byte[] hashedPassword = HashGenerator.sha256(customerFormData.plainPassword());
 
         System.out.println(Arrays.toString(hashedPassword));
-        Customer customer = new Customer(customerFormData.firstName(),
+        Customer customer = new Customer(
+                customerFormData.firstName(),
                 customerFormData.lastName(),
                 customerFormData.address(),
                 customerFormData.username(),

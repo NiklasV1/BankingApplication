@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.niklasv1.banking.account.Account;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -48,7 +49,7 @@ public class TransactionController {
                     transaction.getAmount(),
                     transaction.getSender().getId(),
                     transaction.getReceiver().getId(),
-                    transaction.getTimestamp()
+                    transaction.getTimestamp().format(DateTimeFormatter.ofPattern("hh:mm:ss dd-MM-yyyy"))
             ));
         }
 
@@ -66,7 +67,7 @@ public class TransactionController {
                     transaction.getAmount(),
                     transaction.getSender().getId(),
                     transaction.getReceiver().getId(),
-                    transaction.getTimestamp()
+                    transaction.getTimestamp().format(DateTimeFormatter.ofPattern("hh:mm:ss dd-MM-yyyy"))
             ));
         }
 

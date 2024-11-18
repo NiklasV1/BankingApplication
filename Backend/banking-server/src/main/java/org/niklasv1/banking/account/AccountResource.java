@@ -8,6 +8,7 @@ import jakarta.ws.rs.Path;
 import org.niklasv1.banking.AccountAuthData;
 import org.niklasv1.banking.AuthData;
 import org.niklasv1.banking.BankController;
+import org.niklasv1.banking.InputValidator;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,7 +29,10 @@ public class AccountResource {
     @POST
     @Path("/create")
     public UUID createAccount(AccountCreateData accountCreateData) {
-        // TODO input validation + Error handling
+        InputValidator.checkString(accountCreateData.username(), 50);
+        InputValidator.checkString(accountCreateData.plainPassword());
+        InputValidator.checkString(accountCreateData.name(), 100);
+
         AuthData authData = new AuthData(
                 accountCreateData.id(),
                 accountCreateData.username(),
@@ -41,7 +45,7 @@ public class AccountResource {
     @POST
     @Path("/delete")
     public UUID deleteAccount(AccountAuthData accountAuthData) {
-        // TODO input validation + Error handling
+        InputValidator.checkAccountAuthData(accountAuthData);
 
         return bankController.deleteAccount(accountAuthData);
     }
@@ -49,28 +53,29 @@ public class AccountResource {
     @POST
     @Path("/view")
     public List<AccountResponseData> viewAccounts(AuthData authData) {
-        // TODO input validation + Error handling
+        InputValidator.checkAuthData(authData);
         return bankController.viewAccounts(authData);
     }
 
     @POST
     @Path("/freeze")
     public String freezeAccount(AccountAuthData accountAuthData) {
-        // TODO input validation + Error handling
-
+        InputValidator.checkAccountAuthData(accountAuthData);
         return bankController.freezeAccount(accountAuthData);
     }
 
     @POST
     @Path("/unfreeze")
     public UUID unfreezeAccount(AccountUnfreezeData accountUnfreezeData) {
-        // TODO input validation + Error handling
         AccountAuthData accountAuthData = new AccountAuthData(
                 accountUnfreezeData.id(),
                 accountUnfreezeData.username(),
                 accountUnfreezeData.plainPassword(),
                 accountUnfreezeData.accountId()
         );
+
+        InputValidator.checkAccountAuthData(accountAuthData);
+        InputValidator.checkString(accountUnfreezeData.unfreezeCode());
 
         return bankController.unfreezeAccount(accountAuthData, accountUnfreezeData.unfreezeCode());
     }
