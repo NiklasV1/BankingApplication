@@ -123,8 +123,8 @@ export default {
                         <td class="py-4 px-6 border-b border-gray-200 text-slate-900" colspan="6">
                             <div class="flex justify-center items-center gap-4">
                                 <label class="font-bold text-slate-900 pb-1 select-none">New Transaction</label>
-                                <input class="w-96 shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg font-mono" placeholder="Receiver-ID" v-model="receiver" type="text"/>
                                 <input class="w-56 shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg font-mono" placeholder="Message" v-model="message" type="text"/>
+                                <input class="w-96 shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg font-mono" placeholder="Receiver-ID" v-model="receiver" type="text"/>
                                 <input class="w-36 shadow-md hover:border-blue-400 focus:border-blue-400 focus:outline-none font-semibold text-slate-900 h-10 p-2 border-2 border-slate-300 placeholder:text-slate-400 rounded-lg" placeholder="Amount" v-model="newAmount" type="number"/>
                                 <button @click="makeTransaction" class="shadow-lg hover:bg-blue-600 hover:border-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-blue-500 border-blue-500 text-white font-semibold h-10 border-2 rounded-lg w-20">Create</button>
                             </div>
