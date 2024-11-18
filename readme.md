@@ -12,8 +12,8 @@ Features:
 Technologies used:
 - Docker
 - Java + Quarkus Framework
-- Java Hibernate + Panache
-- Java Jackson REST
+- Quarkus Hibernate + Panache
+- Quarkus Jackson REST
 - Vue.js
 - Tailwind CSS
 - nginx
