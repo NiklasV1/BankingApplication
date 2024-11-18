@@ -1,4 +1,4 @@
-Example of a banking webapp using a Vue.js frontend and a Quarkus backend.
+An example of a banking web app using a Vue.js frontend and a Quarkus backend.
 This app was mainly tested on Firefox with a 1920x1080 Monitor.
 
 
@@ -15,9 +15,14 @@ Technologies used:
 - Java Hibernate + Panache
 - Java Jackson REST
 - Vue.js
-- Tailwind css
+- Tailwind CSS
 - nginx
 - PostgreSQL
+
+
+
+IMPORTANT:
+This is just an example and has some obvious security flaws that should not exist in a production setting!!!
 
 
 
