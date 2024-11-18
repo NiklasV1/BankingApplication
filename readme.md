@@ -38,6 +38,8 @@ Installation:
 
 5. docker compose up -d
 
+-> Website is deployed on http://localhost:80
+
 
 
 Images:
