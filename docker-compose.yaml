@@ -4,7 +4,7 @@ services:
     pull_policy: never
     container_name: banking-frontend
     build:
-      context: ./Frontend
+      context: ./Frontend/banking-frontend
       dockerfile: Dockerfile
     ports:
       - 80:80
@@ -18,10 +18,10 @@ services:
     build:
       context: ./Backend/banking-server
       dockerfile: ./src/main/docker/Dockerfile.jvm
-    ports:
-      - 8080:8080
     depends_on:
       - database
+    ports:
+      - 8080:8080
     networks:
       - frontend-network
       - backend-network
@@ -37,8 +37,6 @@ services:
       - banking-postgres-data:/var/lib/postgresql/data
     env_file:
       - ./Database/database.env
-    ports:
-      - 5432:5432
     networks:
       - backend-network
 
