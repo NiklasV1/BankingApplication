@@ -22,7 +22,7 @@ Technologies used:
 
 
 IMPORTANT:
-This is just an example and has some obvious security flaws that should not exist in a production setting!!!
+- This is just an example and has some obvious security flaws that should not exist in a production setting!!!
 
 
 
